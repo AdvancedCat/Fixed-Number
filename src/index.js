@@ -1,13 +1,5 @@
 
-/**
- * [amend 修正浮点数的值]
- * @param  {[type]} num [description]
- * @return {[type]}     [description]
- * 0.30000000004 -> 0.3
- */
-function amend(num, precision = 12){
-	return +parseFloat(num.toPrecision(precision))
-}
+
 
 /**
  * [getDigitLength 获取一个数字小数点后的位数，支持科学计数法]
@@ -15,8 +7,8 @@ function amend(num, precision = 12){
  * @return {[type]}     [description]
  */
 function getDigitLength(num){
-	let temps = num.toString().split(/[eE]/)
-	let len = (temps[0].split('.')[1] || '').length - (+temps[1] || 0)
+	let temps = num.toString().split(/[eE]/),
+	    len = (temps[0].split('.')[1] || '').length - (+temps[1] || 0)
 
 	return len > 0 ? len : 0
 }
@@ -31,6 +23,18 @@ function transToInt(num){
 
 	let dLen = getDigitLength(xNum)
 	return dLen > 0 ? xNum * Math.pow(10, dLen) : xNum
+}
+
+/************************ 公开API *****************************/
+
+/**
+ * [amend 修正浮点数的值]
+ * @param  {[type]} num [description]
+ * @return {[type]}     [description]
+ * 0.30000000004 -> 0.3
+ */
+function amend(num, precision = 12){
+	return parseFloat(parseFloat(num).toPrecision(precision))
 }
 
 /**
@@ -54,5 +58,29 @@ function multi(){
 	return result / Math.pow(10, baseCount)
 }
 
-export { amend, getDigitLength, transToInt, multi }
-export default { amend, getDigitLength, transToInt, multi }
+function plus(){
+	let args = Array.prototype.slice.call(arguments),
+		result = 0,
+		maxDigitLen = 0,
+		factor = 0
+
+	if(args.length == 0){
+		return result
+	}
+
+	args.forEach((arg)=>{
+		let dLen = getDigitLength(arg)
+		maxDigitLen = dLen > maxDigitLen ? dLen : maxDigitLen
+	})
+
+	factor = Math.pow(10, maxDigitLen)
+
+	args.forEach((arg)=>{
+		result += multi(arg, factor)
+	})
+
+	return result / factor
+}
+
+export { amend, getDigitLength, transToInt, multi, plus }
+export default { amend, getDigitLength, transToInt, multi, plus }

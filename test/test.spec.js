@@ -10,16 +10,20 @@ describe('FN.amend', () => {
     check(0.09999999999999998, 0.1);
     check(1.0000000000000001, 1);
   });
+
+  it('can eliminate rounding errors when arguments is string', function(){
+    check('0.09999999999999998', 0.1)
+    check('1.0000000000000001', 1);
+  })
 });
 
-describe('FN.digitLength', () => {
+describe('FN.getDigitLength', () => {
   function check(num, result) {
     assert.strictEqual(FN.getDigitLength(num), result);
   }
 
   it('can do getDigitLength operation', () => {
     check(123.4567890123, 10);
-
     check(1.23e-5, 7);
     check(1.23E-5, 7);
     check(1.233467e-5, 11);
@@ -30,6 +34,20 @@ describe('FN.digitLength', () => {
     check(1.12345e20, 0);
     check(1.123e30, 0);
     check(1.123e-100, 103);
+  });
+
+  it('can do getDigitLength operation', () => {
+    check('123.4567890123', 10);
+    check('1.23e-5', 7);
+    check('1.23E-5', 7);
+    check('1.233467e-5', 11);
+    check('123.45e-5', 7);
+    check('1.23e-10', 12);
+    check('1.23e1', 1);
+    check('1e20', 0);
+    check('1.12345e20', 0);
+    check('1.123e30', 0);
+    check('1.123e-100', 103);
   });
 });
 
@@ -47,10 +65,17 @@ describe('FN.transToInt', () => {
     check(1.6e-30, 16);
     check(1.234567e-13, 1234567);
     check(1.2345678912345e10, 12345678912345);
+
+    check(1E-1, 1)
   });
+
+  it('string', ()=>{
+    check('1.234567E-13', 1234567);
+    check('1.2345678912345e10', 12345678912345)
+  })
 });
 
-/*
+
 describe('FN.plus', () => {
   function check(num1, num2, result) {
     assert.strictEqual(FN.plus(num1, num2), result);
@@ -68,8 +93,12 @@ describe('FN.plus', () => {
     check(1.3224e10, 1.3224e3, 13224001322.4);
     check(1.6e-30, 1.6e-30, 3.2e-30);
   });
+
+  it('arguments are empty', ()=>{
+    assert.strictEqual(FN.plus(), 0)
+  })
 });
-*/
+
 
 /*
 describe('FN.minus', () => {
