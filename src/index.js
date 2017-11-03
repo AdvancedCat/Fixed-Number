@@ -58,11 +58,15 @@ function multi(){
 	return result / Math.pow(10, baseCount)
 }
 
+/**
+ * [plus 多数据相加]
+ * @return {[type]} [description]
+ */
 function plus(){
 	let args = Array.prototype.slice.call(arguments),
 		result = 0,
 		maxDigitLen = 0,
-		factor = 0
+		factor = 0, i
 
 	if(args.length == 0){
 		return result
