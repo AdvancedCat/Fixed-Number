@@ -1,87 +1,58 @@
-/**
- * @file 解决浮动运算问题，避免小数点后产生多位数和计算精度损失。
- * 问题示例：2.3 + 2.4 = 4.699999999999999，1.0 - 0.9 = 0.09999999999999998
- */
 
 /**
- * 把错误的数据转正
- * strip(0.09999999999999998)=0.1
+ * [amend 修正浮点数的值]
+ * @param  {[type]} num [description]
+ * @return {[type]}     [description]
+ * 0.30000000004 -> 0.3
  */
-function strip(num, precision = 12) {
-  return +parseFloat(num.toPrecision(precision));
+function amend(num, precision = 12){
+	return +parseFloat(num.toPrecision(precision))
 }
 
 /**
- * Return digits length of a number
- * @param {*number} num Input number
+ * [getDigitLength 获取一个数字小数点后的位数，支持科学计数法]
+ * @param  {[type]} num [description]
+ * @return {[type]}     [description]
  */
-function digitLength(num) {
-  // Get digit length of e
-  const eSplit = num.toString().split(/[eE]/);
-  const len = (eSplit[0].split('.')[1] || '').length - (+(eSplit[1] || 0));
-  return len > 0 ? len : 0;
+function getDigitLength(num){
+	let temps = num.toString().split(/[eE]/)
+	let len = (temps[0].split('.')[1] || '').length - (+temps[1] || 0)
+
+	return len > 0 ? len : 0
+}
+
+function transToInt(num){
+	let numStr = num.toString()
+	let xNum = Number(num)
+
+	if(numStr.indexOf('e') == -1 && numStr.indexOf('E') == -1){
+		return Number(numStr.replace('.', ''))
+	}
+
+	let dLen = getDigitLength(xNum)
+	return dLen > 0 ? xNum * Math.pow(10, dLen) : xNum
 }
 
 /**
- * 把小数转成整数，支持科学计数法。如果是小数则放大成整数
- * @param {*number} num 输入数
+ * [multi description]
+ * @return {[type]} [description]
  */
-function float2Fixed(num) {
-  if (num.toString().indexOf('e') === -1) {
-    return Number(num.toString().replace('.', ''));
-  }
-  const dLen = digitLength(num);
-  return dLen > 0 ? num * Math.pow(10, dLen) : num;
+function multi(){
+	let args = Array.prototype.slice.call(arguments),
+		result = 1,
+		baseCount = 0
+
+	if(args.length == 0){
+		return 0
+	}
+
+	args.forEach((arg)=>{
+		baseCount += getDigitLength(arg)
+		result *= transToInt(arg)
+	})
+
+	return result / Math.pow(10, baseCount)
 }
 
-/**
- * 精确乘法
- */
-function times(num1, num2) {
-  const num1Changed = float2Fixed(num1);
-  const num2Changed = float2Fixed(num2);
-  const baseNum = digitLength(num1) + digitLength(num2);
-  const leftValue = num1Changed * num2Changed;
-
-  if (leftValue > Number.MAX_SAFE_INTEGER || leftValue < Number.MIN_SAFE_INTEGER) {
-    console.warn(`${leftValue} is beyond boundary when transfer to integer, the results may not be accurate`);
-  }
-
-  return leftValue / Math.pow(10, baseNum);
-}
-
-/**
- * 精确加法
- */
-function plus(num1, num2) {
-  const baseNum = Math.pow(10, Math.max(digitLength(num1), digitLength(num2)));
-  return (times(num1, baseNum) + times(num2, baseNum)) / baseNum;
-}
-
-/**
- * 精确减法
- */
-function minus(num1, num2) {
-  const baseNum = Math.pow(10, Math.max(digitLength(num1), digitLength(num2)));
-  return (times(num1, baseNum) - times(num2, baseNum)) / baseNum;
-}
-
-/**
- * 精确除法
- */
-function divide(num1, num2) {
-  const num1Changed = float2Fixed(num1);
-  const num2Changed = float2Fixed(num2);
-  return times((num1Changed / num2Changed), Math.pow(10, digitLength(num2) - digitLength(num1)));
-}
-
-/**
- * 四舍五入
- */
-function round(num, ratio) {
-  const base = Math.pow(10, ratio);
-  return divide(Math.round(times(num, base)), base);
-}
-
-export { strip, plus, minus, times, divide, round, digitLength, float2Fixed };
-export default { strip, plus, minus, times, divide, round, digitLength, float2Fixed };
+export { amend, getDigitLength, transToInt, multi }
+export default { amend, getDigitLength, transToInt, multi }

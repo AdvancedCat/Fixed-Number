@@ -1,9 +1,9 @@
 import { assert } from 'chai';
-import NP from '../src';
+import FN from '../src';
 
-describe('NP.strip', () => {
+describe('FN.amend', () => {
   function check(num1, result) {
-    assert.strictEqual(NP.strip(num1), result);
+    assert.strictEqual(FN.amend(num1), result);
   }
 
   it('can eliminate rounding errors', () => {
@@ -12,12 +12,12 @@ describe('NP.strip', () => {
   });
 });
 
-describe('NP.digitLength', () => {
+describe('FN.digitLength', () => {
   function check(num, result) {
-    assert.strictEqual(NP.digitLength(num), result);
+    assert.strictEqual(FN.getDigitLength(num), result);
   }
 
-  it('can do digitLength operation', () => {
+  it('can do getDigitLength operation', () => {
     check(123.4567890123, 10);
 
     check(1.23e-5, 7);
@@ -33,9 +33,9 @@ describe('NP.digitLength', () => {
   });
 });
 
-describe('NP.float2Fixed', () => {
+describe('FN.transToInt', () => {
   function check(num, result) {
-    assert.strictEqual(NP.float2Fixed(num), result);
+    assert.strictEqual(FN.transToInt(num), result);
   }
 
   it('can change float to fixed', () => {
@@ -50,9 +50,10 @@ describe('NP.float2Fixed', () => {
   });
 });
 
-describe('NP.plus', () => {
+/*
+describe('FN.plus', () => {
   function check(num1, num2, result) {
-    assert.strictEqual(NP.plus(num1, num2), result);
+    assert.strictEqual(FN.plus(num1, num2), result);
   }
 
   it('can do plus operation', () => {
@@ -68,10 +69,12 @@ describe('NP.plus', () => {
     check(1.6e-30, 1.6e-30, 3.2e-30);
   });
 });
+*/
 
-describe('NP.minus', () => {
+/*
+describe('FN.minus', () => {
   function check(num1, num2, result) {
-    assert.strictEqual(NP.minus(num1, num2), result);
+    assert.strictEqual(FN.minus(num1, num2), result);
   }
 
   it('can do minus operation', () => {
@@ -93,10 +96,11 @@ describe('NP.minus', () => {
     check(1.7e-30, 0.1e-30, 1.6e-30);
   });
 });
+*/
 
-describe('NP.times', () => {
+describe('FN.multi', () => {
   function check(num1, num2, result) {
-    assert.strictEqual(NP.times(num1, num2), result);
+    assert.strictEqual(FN.multi(num1, num2), result);
   }
 
   it('can do times operation', () => {
@@ -111,7 +115,7 @@ describe('NP.times', () => {
     check(1.22, -1.639344262295082, -2);
     check(2.5, -0.92, -2.3);
     check(-2.2, 0.6363636363636364, -1.4);
-    // check(-3, 2.3333333333333335, 7);
+    // check(-3, 2.3333333333333335, -7);
     // check(-0.076, -92.10526315789471, 7);
     check(8.0, -0.3625, -2.9);
     check(6.6, 0.30303030303030304, 2);
@@ -121,11 +125,16 @@ describe('NP.times', () => {
     check(-1.23e4, 20, -246000);
     check(1.7e-30, 1.5e20, 2.55e-10);
   });
+
+  it('can return correct result when arguments is empty', ()=>{
+    assert.strictEqual(FN.multi(), 0)
+  })
 });
 
-describe('NP.divide', () => {
+/*
+describe('FN.divide', () => {
   function check(num1, num2, result) {
-    assert.strictEqual(NP.divide(num1, num2), result);
+    assert.strictEqual(FN.divide(num1, num2), result);
   }
 
   it('can do divide operation', () => {
@@ -148,10 +157,12 @@ describe('NP.divide', () => {
     check(2.55e-10, 1.7e-30, 1.5e20);
   });
 });
+*/
 
-describe('NP.round', () => {
+/*
+describe('FN.round', () => {
   function check(num1, num2, result) {
-    assert.strictEqual(NP.round(num1, num2), result);
+    assert.strictEqual(FN.round(num1, num2), result);
   }
 
   it('can do round operation', () => {
@@ -173,3 +184,4 @@ describe('NP.round', () => {
     check(1e3, 1, 1000);
   });
 });
+*/
