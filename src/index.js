@@ -1,6 +1,3 @@
-
-
-
 /**
  * [getDigitLength 获取一个数字小数点后的位数，支持科学计数法]
  * @param  {[type]} num [description]
@@ -13,6 +10,11 @@ function getDigitLength(num){
 	return len > 0 ? len : 0
 }
 
+/**
+ * [transToInt 将浮点数转变为整数，丢弃小数点]
+ * @param  {[type]} num [description]
+ * @return {[type]}     [description]
+ */
 function transToInt(num){
 	let numStr = num.toString()
 	let xNum = Number(num)
@@ -86,5 +88,56 @@ function plus(){
 	return result / factor
 }
 
-export { amend, getDigitLength, transToInt, multi, plus }
-export default { amend, getDigitLength, transToInt, multi, plus }
+function minus(){
+	let args = Array.prototype.slice.call(arguments),
+		result = 0,
+		maxDigitLen = 0,
+		factor = 0, i
+
+	if(args.length == 0){
+		return result
+	}
+
+	args.forEach((arg)=>{
+		let dLen = getDigitLength(arg)
+		maxDigitLen = dLen > maxDigitLen ? dLen : maxDigitLen
+	})
+
+	factor = Math.pow(10, maxDigitLen)
+	result = multi(args[0], factor)
+
+	for(i=1; i<args.length; i++){
+		result -= multi(args[i], factor)
+	}
+
+	return result / factor
+}
+
+function divide(){
+	let args = Array.prototype.slice.call(arguments),
+		factor = 0, i,
+		argsLen = args.length,
+		n1 = 0, n2 = 0, r = 0, rest
+
+	if(argsLen == 0){
+		return r
+	}
+	r = args[0]
+	if(argsLen == 1){
+		return r
+	}
+
+	n1 = transToInt(args[0])
+	n2 = transToInt(args[1])
+	r = multi( (n1 / n2), Math.pow( 10, getDigitLength(args[1]) - getDigitLength(args[0])) )
+
+	if(argsLen == 2){
+		return r
+	}
+
+	rest = args.slice(2)
+	return divide.apply(null, [r].concat(rest))
+}
+
+export { amend, getDigitLength, transToInt, multi, plus, minus, divide }
+export default { amend, getDigitLength, transToInt, multi, plus, minus, divide }

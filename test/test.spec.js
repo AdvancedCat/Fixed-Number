@@ -100,7 +100,7 @@ describe('FN.plus', () => {
 });
 
 
-/*
+
 describe('FN.minus', () => {
   function check(num1, num2, result) {
     assert.strictEqual(FN.minus(num1, num2), result);
@@ -124,8 +124,12 @@ describe('FN.minus', () => {
     check(1.3224e10, 1.3224e3, 13223998677.6);
     check(1.7e-30, 0.1e-30, 1.6e-30);
   });
+
+  it('arguments are empty', ()=>{
+    assert.strictEqual(FN.minus(), 0)
+  })
 });
-*/
+
 
 describe('FN.multi', () => {
   function check(num1, num2, result) {
@@ -160,7 +164,7 @@ describe('FN.multi', () => {
   })
 });
 
-/*
+
 describe('FN.divide', () => {
   function check(num1, num2, result) {
     assert.strictEqual(FN.divide(num1, num2), result);
@@ -185,8 +189,22 @@ describe('FN.divide', () => {
     check(-1.23e4, 20, -615);
     check(2.55e-10, 1.7e-30, 1.5e20);
   });
+
+  function checks(result){
+    let args = [].slice.call(arguments),
+        rest = args.slice(1)
+
+    assert.strictEqual(FN.divide.apply(null, rest), result)
+  }
+  it('no two params', ()=>{
+    checks(0)
+    checks(1,1)
+    checks(2, 100, 50)
+    checks(5, 100, 5, 4)
+    checks(0.03, 0.9, 3, 2, 5)
+  })
 });
-*/
+
 
 /*
 describe('FN.round', () => {
