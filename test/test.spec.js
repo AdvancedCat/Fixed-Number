@@ -36,7 +36,7 @@ describe('FN.getDigitLength', () => {
     check(1.123e-100, 103);
   });
 
-  it('can do getDigitLength operation', () => {
+  it('can do getDigitLength operation when argument is string', () => {
     check('123.4567890123', 10);
     check('1.23e-5', 7);
     check('1.23E-5', 7);
@@ -69,19 +69,23 @@ describe('FN.transToInt', () => {
     check(1E-1, 1)
   });
 
-  it('string', ()=>{
+  it('can change float to fixed when argument is string', ()=>{
     check('1.234567E-13', 1234567);
     check('1.2345678912345e10', 12345678912345)
   })
 });
 
-
 describe('FN.plus', () => {
-  function check(num1, num2, result) {
-    assert.strictEqual(FN.plus(num1, num2), result);
+  function check(){
+    let args = [].slice.call(arguments),
+        len = args.length,
+        result = args[len-1],
+        rest = args.slice(0,len-1)
+
+    assert.strictEqual(FN.plus.apply(null,rest), result);
   }
 
-  it('can do plus operation', () => {
+  it('can do plus operation, basic usage', () => {
     check(0.1, 0.2, 0.3);
     check(2.3, 2.4, 4.7);
     check(-1.6, -1, -2.6);
@@ -92,18 +96,26 @@ describe('FN.plus', () => {
     check(2.018, 0.001, 2.019);
     check(1.3224e10, 1.3224e3, 13224001322.4);
     check(1.6e-30, 1.6e-30, 3.2e-30);
+    check(1.6E-30, 1.6e-30, 3.2e-30);
   });
 
-  it('arguments are empty', ()=>{
-    assert.strictEqual(FN.plus(), 0)
+  it('arguments are flexible', ()=>{
+    check(0)
+    check(1,2,3, 6)
+    check(0.1,0.1,0.1, 0.3)
+    check(2.3,2.4,2.52, 7.22)
   })
 });
 
 
 
 describe('FN.minus', () => {
-  function check(num1, num2, result) {
-    assert.strictEqual(FN.minus(num1, num2), result);
+  function check() {
+    let args = [].slice.call(arguments),
+        len = args.length,
+        result = args[len-1],
+        rest = args.slice(0,len-1)
+    assert.strictEqual(FN.minus.apply(null, rest), result);
   }
 
   it('can do minus operation', () => {
@@ -125,15 +137,22 @@ describe('FN.minus', () => {
     check(1.7e-30, 0.1e-30, 1.6e-30);
   });
 
-  it('arguments are empty', ()=>{
-    assert.strictEqual(FN.minus(), 0)
+
+  it('arguments are flexible', ()=>{
+    check(0)
+    check(6,3,2, 1)
+    check(0.9,0.5,0.1, 0.3)
   })
 });
 
 
 describe('FN.multi', () => {
-  function check(num1, num2, result) {
-    assert.strictEqual(FN.multi(num1, num2), result);
+  function check() {
+    let args = [].slice.call(arguments),
+        len = args.length,
+        result = args[len-1],
+        rest = args.slice(0,len-1)
+    assert.strictEqual(FN.multi.apply(null,rest), result);
   }
 
   it('can do times operation', () => {
@@ -159,8 +178,10 @@ describe('FN.multi', () => {
     check(1.7e-30, 1.5e20, 2.55e-10);
   });
 
-  it('can return correct result when arguments is empty', ()=>{
-    assert.strictEqual(FN.multi(), 0)
+  it('arguments are flexible', ()=>{
+    check(0)
+    check(0.7,0.1,0.1, 0.007)
+    check(5.2, -3.8461538461538462,0.5, -10)
   })
 });
 
