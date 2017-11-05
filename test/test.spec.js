@@ -105,6 +105,8 @@ describe('FN.plus', () => {
     check(0.1,0.1,0.1, 0.3)
     check(2.3,2.4,2.52, 7.22)
   })
+
+  
 });
 
 
@@ -187,8 +189,12 @@ describe('FN.multi', () => {
 
 
 describe('FN.divide', () => {
-  function check(num1, num2, result) {
-    assert.strictEqual(FN.divide(num1, num2), result);
+  function check() {
+    let args = [].slice.call(arguments),
+        len = args.length,
+        result = args[len-1],
+        rest = args.slice(0,len-1)
+    assert.strictEqual(FN.divide.apply(null, rest), result);
   }
 
   it('can do divide operation', () => {
@@ -211,18 +217,12 @@ describe('FN.divide', () => {
     check(2.55e-10, 1.7e-30, 1.5e20);
   });
 
-  function checks(result){
-    let args = [].slice.call(arguments),
-        rest = args.slice(1)
-
-    assert.strictEqual(FN.divide.apply(null, rest), result)
-  }
-  it('no two params', ()=>{
-    checks(0)
-    checks(1,1)
-    checks(2, 100, 50)
-    checks(5, 100, 5, 4)
-    checks(0.03, 0.9, 3, 2, 5)
+  it('arguments are flexible', ()=>{
+    check(0)
+    check(1,1)
+    check(100, 50, 2)
+    check(100, 5, 4, 5)
+    check(0.9, 3, 2, 5, 0.03)
   })
 });
 
