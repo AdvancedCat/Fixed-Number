@@ -106,7 +106,10 @@ describe('FN.plus', () => {
     check(2.3,2.4,2.52, 7.22)
   })
 
-  
+  it('arguments are string', ()=>{
+    check('1','2','3', 6)
+    check('2.3','2.4','2.52', 7.22)
+  })
 });
 
 
@@ -144,6 +147,11 @@ describe('FN.minus', () => {
     check(0)
     check(6,3,2, 1)
     check(0.9,0.5,0.1, 0.3)
+  })
+
+  it('arguments are string', ()=>{
+    check('6','3',2, 1)
+    check(0.9,'0.5',0.1, 0.3)
   })
 });
 
@@ -185,6 +193,11 @@ describe('FN.multi', () => {
     check(0.7,0.1,0.1, 0.007)
     check(5.2, -3.8461538461538462,0.5, -10)
   })
+
+  it('arguments are string', ()=>{
+    check('0.7','0.1','0.1', 0.007)
+    check(5.2, '-3.8461538461538462',0.5, -10)
+  })
 });
 
 
@@ -223,6 +236,12 @@ describe('FN.divide', () => {
     check(100, 50, 2)
     check(100, 5, 4, 5)
     check(0.9, 3, 2, 5, 0.03)
+  })
+
+  it('arguments are string', ()=>{
+    check('100', '50', 2)
+    check(100, '5', 4, 5)
+    check(0.9, '3', '2', '5', 0.03)
   })
 });
 
