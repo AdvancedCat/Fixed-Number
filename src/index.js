@@ -148,8 +148,10 @@ function divide(){
 
 
 function toFixed(num, radio){
-	let base = Math.pow(10, radio || 0)
-	return divide(Math.round( multi(num, base) ), base)
+	let base = Math.pow(10, radio || 0),
+		numStr = num.toString(),
+		xNum = Number(numStr)
+	return divide(Math.round( multi(xNum, base) ), base)
 }
 
 export { amend, getDigitLength, transToInt, multi, plus, minus, divide, toFixed }

@@ -246,13 +246,13 @@ describe('FN.divide', () => {
 });
 
 
-/*
-describe('FN.round', () => {
+
+describe('FN.toFixed', () => {
   function check(num1, num2, result) {
-    assert.strictEqual(FN.round(num1, num2), result);
+    assert.strictEqual(FN.toFixed(num1, num2), result);
   }
 
-  it('can do round operation', () => {
+  it('can do toFixed operation', () => {
     check(0, 1, 0);
     check(0, 0, 0);
     check(0.7875, 3, 0.788);
@@ -271,4 +271,3 @@ describe('FN.round', () => {
     check(1e3, 1, 1000);
   });
 });
-*/
