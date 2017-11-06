@@ -113,6 +113,8 @@ describe('FN.plus', () => {
   it('arguments are string', ()=>{
     check('1','2','3', 6)
     check('2.3','2.4','2.52', 7.22)
+
+    check('1.3224e10', '1.3224E3', 13224001322.4);
   })
 });
 
@@ -156,6 +158,10 @@ describe('FN.minus', () => {
   it('arguments are string', ()=>{
     check('6','3',2, 1)
     check(0.9,'0.5',0.1, 0.3)
+
+    check('1.3224e10', '1.3224E3', 13223998677.6);
+
+    check('1.7e-30', '0.1E-30', 1.6e-30);
   })
 });
 
@@ -169,7 +175,7 @@ describe('FN.multi', () => {
     assert.strictEqual(FN.multi.apply(null,rest), result);
   }
 
-  it('can do times operation', () => {
+  it('can do multi operation', () => {
     check(0.07, 100, 7);
     check(0.7, 0.1, 0.07);
     check(3, 0.3, 0.9);
@@ -201,6 +207,8 @@ describe('FN.multi', () => {
   it('arguments are string', ()=>{
     check('0.7','0.1','0.1', 0.007)
     check(5.2, '-3.8461538461538462',0.5, -10)
+
+    check('1.7e-30', '1.5E20', 2.55e-10);
   })
 });
 
@@ -246,6 +254,8 @@ describe('FN.divide', () => {
     check('100', '50', 2)
     check(100, '5', 4, 5)
     check(0.9, '3', '2', '5', 0.03)
+
+    check('2.55e-10', '1.7E-30', 1.5e20);
   })
 });
 
@@ -277,5 +287,7 @@ describe('FN.toFixed', () => {
 
   it('can do toFixed operation when arguments are string', ()=>{
     check('0.105', 2, 0.11)
+
+    check('1.2345E3', 3, 1234.5);
   })
 });
