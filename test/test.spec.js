@@ -56,7 +56,7 @@ describe('FN.transToInt', () => {
     assert.strictEqual(FN.transToInt(num), result);
   }
 
-  it('can change float to fixed', () => {
+  it('can translate float to fixed', () => {
     check(1e-1, 1);
     check(1e-6, 1);
     check(1e-7, 1);
@@ -67,11 +67,15 @@ describe('FN.transToInt', () => {
     check(1.2345678912345e10, 12345678912345);
 
     check(1E-1, 1)
+
+    check(1.234, 1234)
   });
 
-  it('can change float to fixed when argument is string', ()=>{
+  it('can translate float to fixed when argument is string', ()=>{
     check('1.234567E-13', 1234567);
     check('1.2345678912345e10', 12345678912345)
+
+    check('1.234', 1234)
   })
 });
 
