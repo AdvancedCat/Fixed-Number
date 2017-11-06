@@ -1,3 +1,23 @@
+;(function(){
+
+//  From underscore source 
+var root = 
+	typeof self == 'object' && self.self === self && self ||
+    typeof global == 'object' && global.global === global && global ||
+    this ||
+    {};
+
+var FN = {}
+
+if (typeof exports != 'undefined' && !exports.nodeType) {
+	if (typeof module != 'undefined' && !module.nodeType && module.exports) {
+	    exports = module.exports = FN;
+	}
+	exports.FN = FN;
+} else {
+	root.FN = FN;
+}
+
 /**
  * [getDigitLength 获取一个数字小数点后的位数，支持科学计数法]
  * @param  {[type]} num [description]
@@ -28,22 +48,16 @@ function transToInt(num){
 	return dLen > 0 ? xNum * Math.pow(10, dLen) : xNum
 }
 
-/************************ 公开API *****************************/
+/************************ open API *****************************/
 
 /**
- * [amend 修正浮点数的值]
- * @param  {[type]} num [description]
- * @return {[type]}     [description]
  * 0.30000000004 -> 0.3
  */
 function amend(num, precision = 12){
 	return parseFloat(parseFloat(num).toPrecision(precision))
 }
 
-/**
- * [plus 多数据相加]
- * @return {[type]} [description]
- */
+
 function plus(){
 	let args = Array.prototype.slice.call(arguments),
 		argsLen = args.length,
@@ -97,10 +111,7 @@ function minus(){
 	return result / factor
 }
 
-/**
- * [multi description]
- * @return {[type]} [description]
- */
+
 function multi(){
 	let args = Array.prototype.slice.call(arguments),
 		argsLen = args.length,
@@ -154,5 +165,20 @@ function toFixed(num, ratio){
 	return divide(Math.round( multi(xNum, base) ), base)
 }
 
-export { amend, getDigitLength, transToInt, multi, plus, minus, divide, toFixed }
-export default { amend, getDigitLength, transToInt, multi, plus, minus, divide, toFixed }
+FN = {
+	amend: amend,
+	plus: plus,
+	minus: minus,
+	multi: multi,
+	divide: divide,
+	toFixed: toFixed
+}
+
+
+if (typeof define == 'function' && define.amd) {
+	define('underscore', [], function() {
+	  return FN;
+	});
+}
+
+})();
