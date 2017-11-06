@@ -23,7 +23,7 @@
     "test-cov": "karma start --auto-watch --single-run --reporters progress,coverage",
     "build": "babel src --out-dir build && minify src/index.js --out-file build/index.min.js",
     "clean": "rm -rf build",
-    "lint": "eslint src test"
+    "lint": "eslint src"
   },
   "dependencies": {},
   "devDependencies": {

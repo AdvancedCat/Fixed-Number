@@ -12,9 +12,9 @@ describe('FN.amend', () => {
   });
 
   it('can eliminate rounding errors when arguments is string', function(){
-    check('0.09999999999999998', 0.1)
+    check('0.09999999999999998', 0.1);
     check('1.0000000000000001', 1);
-  })
+  });
 });
 
 describe('FN.getDigitLength', () => {
@@ -66,17 +66,17 @@ describe('FN.transToInt', () => {
     check(1.234567e-13, 1234567);
     check(1.2345678912345e10, 12345678912345);
 
-    check(1E-1, 1)
+    check(1E-1, 1);
 
-    check(1.234, 1234)
+    check(1.234, 1234);
   });
 
   it('can translate float to fixed when argument is string', ()=>{
     check('1.234567E-13', 1234567);
-    check('1.2345678912345e10', 12345678912345)
+    check('1.2345678912345e10', 12345678912345);
 
-    check('1.234', 1234)
-  })
+    check('1.234', 1234);
+  });
 });
 
 describe('FN.plus', () => {
@@ -84,7 +84,7 @@ describe('FN.plus', () => {
     let args = [].slice.call(arguments),
         len = args.length,
         result = args[len-1],
-        rest = args.slice(0,len-1)
+        rest = args.slice(0,len-1);
 
     assert.strictEqual(FN.plus.apply(null,rest), result);
   }
@@ -104,18 +104,18 @@ describe('FN.plus', () => {
   });
 
   it('arguments are flexible', ()=>{
-    check(0)
-    check(1,2,3, 6)
-    check(0.1,0.1,0.1, 0.3)
-    check(2.3,2.4,2.52, 7.22)
-  })
+    check(0);
+    check(1,2,3, 6);
+    check(0.1,0.1,0.1, 0.3);
+    check(2.3,2.4,2.52, 7.22);
+  });
 
   it('arguments are string', ()=>{
-    check('1','2','3', 6)
-    check('2.3','2.4','2.52', 7.22)
+    check('1','2','3', 6);
+    check('2.3','2.4','2.52', 7.22);
 
     check('1.3224e10', '1.3224E3', 13224001322.4);
-  })
+  });
 });
 
 
@@ -125,7 +125,7 @@ describe('FN.minus', () => {
     let args = [].slice.call(arguments),
         len = args.length,
         result = args[len-1],
-        rest = args.slice(0,len-1)
+        rest = args.slice(0,len-1);
     assert.strictEqual(FN.minus.apply(null, rest), result);
   }
 
@@ -150,19 +150,19 @@ describe('FN.minus', () => {
 
 
   it('arguments are flexible', ()=>{
-    check(0)
-    check(6,3,2, 1)
-    check(0.9,0.5,0.1, 0.3)
-  })
+    check(0);
+    check(6,3,2, 1);
+    check(0.9,0.5,0.1, 0.3);
+  });
 
   it('arguments are string', ()=>{
-    check('6','3',2, 1)
-    check(0.9,'0.5',0.1, 0.3)
+    check('6','3',2, 1);
+    check(0.9,'0.5',0.1, 0.3);
 
     check('1.3224e10', '1.3224E3', 13223998677.6);
 
     check('1.7e-30', '0.1E-30', 1.6e-30);
-  })
+  });
 });
 
 
@@ -171,7 +171,7 @@ describe('FN.multi', () => {
     let args = [].slice.call(arguments),
         len = args.length,
         result = args[len-1],
-        rest = args.slice(0,len-1)
+        rest = args.slice(0,len-1);
     assert.strictEqual(FN.multi.apply(null,rest), result);
   }
 
@@ -199,17 +199,17 @@ describe('FN.multi', () => {
   });
 
   it('arguments are flexible', ()=>{
-    check(0)
-    check(0.7,0.1,0.1, 0.007)
-    check(5.2, -3.8461538461538462,0.5, -10)
-  })
+    check(0);
+    check(0.7,0.1,0.1, 0.007);
+    check(5.2, -3.8461538461538462,0.5, -10);
+  });
 
   it('arguments are string', ()=>{
-    check('0.7','0.1','0.1', 0.007)
-    check(5.2, '-3.8461538461538462',0.5, -10)
+    check('0.7','0.1','0.1', 0.007);
+    check(5.2, '-3.8461538461538462',0.5, -10);
 
     check('1.7e-30', '1.5E20', 2.55e-10);
-  })
+  });
 });
 
 
@@ -218,7 +218,7 @@ describe('FN.divide', () => {
     let args = [].slice.call(arguments),
         len = args.length,
         result = args[len-1],
-        rest = args.slice(0,len-1)
+        rest = args.slice(0,len-1);
     assert.strictEqual(FN.divide.apply(null, rest), result);
   }
 
@@ -243,20 +243,20 @@ describe('FN.divide', () => {
   });
 
   it('arguments are flexible', ()=>{
-    check(0)
-    check(1,1)
-    check(100, 50, 2)
-    check(100, 5, 4, 5)
-    check(0.9, 3, 2, 5, 0.03)
-  })
+    check(0);
+    check(1,1);
+    check(100, 50, 2);
+    check(100, 5, 4, 5);
+    check(0.9, 3, 2, 5, 0.03);
+  });
 
   it('arguments are string', ()=>{
-    check('100', '50', 2)
-    check(100, '5', 4, 5)
-    check(0.9, '3', '2', '5', 0.03)
+    check('100', '50', 2);
+    check(100, '5', 4, 5);
+    check(0.9, '3', '2', '5', 0.03);
 
     check('2.55e-10', '1.7E-30', 1.5e20);
-  })
+  });
 });
 
 
@@ -286,16 +286,16 @@ describe('FN.toFixed', () => {
   });
 
   it('can do toFixed operation when arguments are string', ()=>{
-    check('0.105', 2, 0.11)
+    check('0.105', 2, 0.11);
 
     check('1.2345E3', 3, 1234.5);
-  })
+  });
 });
 
 describe('FN.noConflict', ()=>{
-  let newNameForFN = FN.noConflict()
+  let newNameForFN = FN.noConflict();
 
   it('New name for FN', ()=>{
-    assert.strictEqual(newNameForFN.plus(1,2), 3)
-  })
-})
+    assert.strictEqual(newNameForFN.plus(1,2), 3);
+  });
+});
