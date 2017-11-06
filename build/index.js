@@ -192,7 +192,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	};
 
 	if (typeof define == 'function' && define.amd) {
-		define('underscore', [], function () {
+		define('FN', [], function () {
 			return FN;
 		});
 	}
