@@ -4,8 +4,8 @@
  * @return {[type]}     [description]
  */
 function getDigitLength(num){
-	let temps = num.toString().split(/[eE]/),
-	    len = (temps[0].split('.')[1] || '').length - (+temps[1] || 0)
+	let eSplits = num.toString().split(/[eE]/),
+	    len = (eSplits[0].split('.')[1] || '').length - (+eSplits[1] || 0)
 
 	return len > 0 ? len : 0
 }
@@ -16,14 +16,15 @@ function getDigitLength(num){
  * @return {[type]}     [description]
  */
 function transToInt(num){
-	let numStr = num.toString()
-	let xNum = Number(num)
+	let numStr = num.toString(),
+		xNum = Number(num),
+		dLen = 0
 
 	if(numStr.indexOf('e') == -1 && numStr.indexOf('E') == -1){
 		return Number(numStr.replace('.', ''))
 	}
 
-	let dLen = getDigitLength(xNum)
+	dLen = getDigitLength(xNum)
 	return dLen > 0 ? xNum * Math.pow(10, dLen) : xNum
 }
 
@@ -40,68 +41,51 @@ function amend(num, precision = 12){
 }
 
 /**
- * [multi description]
- * @return {[type]} [description]
- */
-function multi(){
-	let args = Array.prototype.slice.call(arguments),
-		result = 1,
-		baseCount = 0
-
-	if(args.length == 0){
-		return 0
-	}
-
-	args.forEach((arg)=>{
-		baseCount += getDigitLength(arg)
-		result *= transToInt(arg)
-	})
-
-	return result / Math.pow(10, baseCount)
-}
-
-/**
  * [plus 多数据相加]
  * @return {[type]} [description]
  */
 function plus(){
 	let args = Array.prototype.slice.call(arguments),
+		argsLen = args.length,
 		result = 0,
 		maxDigitLen = 0,
-		factor = 0, i
+		factor = 0, 
+		i
 
-	if(args.length == 0){
+	if(argsLen == 0){
 		return result
 	}
 
-	args.forEach((arg)=>{
-		let dLen = getDigitLength(arg)
+	for(i=0; i<argsLen; i++){
+		let dLen = getDigitLength(args[i])
 		maxDigitLen = dLen > maxDigitLen ? dLen : maxDigitLen
-	})
+	}
 
 	factor = Math.pow(10, maxDigitLen)
 
-	args.forEach((arg)=>{
-		result += multi(arg, factor)
-	})
+	for(i=0; i<argsLen; i++){
+		result += multi(args[i], factor)
+	}
 
 	return result / factor
 }
 
 function minus(){
 	let args = Array.prototype.slice.call(arguments),
+		argsLen = args.length,
 		result = 0,
 		maxDigitLen = 0,
-		factor = 0, i
+		factor = 0, 
+		i
 
 	if(args.length == 0){
 		return result
 	}
 
-	args.forEach((arg)=>{
-		let dLen = getDigitLength(arg)
+	for(i=0; i<argsLen; i++){
+		let dLen = getDigitLength(args[i])
 		maxDigitLen = dLen > maxDigitLen ? dLen : maxDigitLen
-	})
+	}
 
 	factor = Math.pow(10, maxDigitLen)
 	result = multi(args[0], factor)
@@ -111,6 +95,29 @@ function minus(){
 	}
 
 	return result / factor
+}
+
+/**
+ * [multi description]
+ * @return {[type]} [description]
+ */
+function multi(){
+	let args = Array.prototype.slice.call(arguments),
+		argsLen = args.length,
+		result = 1,
+		baseCount = 0, 
+		i
+
+	if(argsLen == 0){
+		return 0
+	}
+
+	for(i=0; i<argsLen; i++){
+		baseCount += getDigitLength(args[i])
+		result *= transToInt(args[i])
+	}
+
+	return result / Math.pow(10, baseCount)
 }
 
 function divide(){
@@ -139,5 +146,11 @@ function divide(){
 	return divide.apply(null, [r].concat(rest))
 }
 
-export { amend, getDigitLength, transToInt, multi, plus, minus, divide }
-export default { amend, getDigitLength, transToInt, multi, plus, minus, divide }
+
+function toFixed(num, radio){
+	let base = Math.pow(10, radio || 0)
+	return divide(Math.round( multi(num, base) ), base)
+}
+
+export { amend, getDigitLength, transToInt, multi, plus, minus, divide, toFixed }
+export default { amend, getDigitLength, transToInt, multi, plus, minus, divide, toFixed }
