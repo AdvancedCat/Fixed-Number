@@ -4,8 +4,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 ;(function () {
 
+	'use strict';
+
 	//  From underscore source 
+
 	var root = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self.self === self && self || (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global.global === global && global || this || {};
+
+	// store previous FN
+	var previousFN = root.FN;
 
 	var FN = {};
 
@@ -168,6 +174,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		return divide(Math.round(multi(xNum, base)), base);
 	}
 
+	function noConflict() {
+		root.FN = previousFN;
+		return this;
+	}
+
 	FN = {
 		getDigitLength: getDigitLength,
 		transToInt: transToInt,
@@ -176,7 +187,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		minus: minus,
 		multi: multi,
 		divide: divide,
-		toFixed: toFixed
+		toFixed: toFixed,
+		noConflict: noConflict
 	};
 
 	if (typeof define == 'function' && define.amd) {

@@ -8,6 +8,8 @@ var root =
     typeof global == 'object' && global.global === global && global ||
     this ||
     {}
+    
+// store previous FN
 var previousFN = root.FN;
 
 var FN = {}

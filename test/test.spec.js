@@ -291,3 +291,11 @@ describe('FN.toFixed', () => {
     check('1.2345E3', 3, 1234.5);
   })
 });
+
+describe('FN.noConflict', ()=>{
+  let newNameForFN = FN.noConflict()
+
+  it('New name for FN', ()=>{
+    assert.strictEqual(newNameForFN.plus(1,2), 3)
+  })
+})
