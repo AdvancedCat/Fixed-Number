@@ -8,7 +8,7 @@ var root =
     typeof global == 'object' && global.global === global && global ||
     this ||
     {}
-    
+
 // store previous FN
 var previousFN = root.FN;
 
@@ -189,7 +189,7 @@ FN = {
 
 
 if (typeof define == 'function' && define.amd) {
-	define('underscore', [], function() {
+	define('FN', [], function() {
 	  return FN
 	})
 }
