@@ -1,21 +1,24 @@
 ;(function(){
 
+'use strict'
+
 //  From underscore source 
 var root = 
 	typeof self == 'object' && self.self === self && self ||
     typeof global == 'object' && global.global === global && global ||
     this ||
-    {};
+    {}
+var previousFN = root.FN;
 
 var FN = {}
 
 if (typeof exports != 'undefined' && !exports.nodeType) {
 	if (typeof module != 'undefined' && !module.nodeType && module.exports) {
-	    exports = module.exports = FN;
+	    exports = module.exports = FN
 	}
-	exports.FN = FN;
+	exports.FN = FN
 } else {
-	root.FN = FN;
+	root.FN = FN
 }
 
 /**
@@ -165,20 +168,28 @@ function toFixed(num, ratio){
 	return divide(Math.round( multi(xNum, base) ), base)
 }
 
+function noConflict(){
+	root.FN = previousFN
+	return this
+}
+
 FN = {
-	amend: amend,
-	plus: plus,
-	minus: minus,
-	multi: multi,
-	divide: divide,
-	toFixed: toFixed
+	getDigitLength,
+	transToInt,
+	amend,
+	plus,
+	minus,
+	multi,
+	divide,
+	toFixed,
+	noConflict
 }
 
 
 if (typeof define == 'function' && define.amd) {
 	define('underscore', [], function() {
-	  return FN;
-	});
+	  return FN
+	})
 }
 
-})();
+})()
