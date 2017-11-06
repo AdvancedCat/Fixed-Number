@@ -248,8 +248,8 @@ describe('FN.divide', () => {
 
 
 describe('FN.toFixed', () => {
-  function check(num1, num2, result) {
-    assert.strictEqual(FN.toFixed(num1, num2), result);
+  function check(num, ratio, result) {
+    assert.strictEqual(FN.toFixed(num, ratio), result);
   }
 
   it('can do toFixed operation', () => {
@@ -270,4 +270,8 @@ describe('FN.toFixed', () => {
     check(1.2344e3, 3, 1234.4);
     check(1e3, 1, 1000);
   });
+
+  it('can do toFixed operation when arguments are string', ()=>{
+    check('0.105', 2, 0.11)
+  })
 });

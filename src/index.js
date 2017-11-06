@@ -147,8 +147,8 @@ function divide(){
 }
 
 
-function toFixed(num, radio){
-	let base = Math.pow(10, radio || 0),
+function toFixed(num, ratio){
+	let base = Math.pow(10, ratio || 0),
 		numStr = num.toString(),
 		xNum = Number(numStr)
 	return divide(Math.round( multi(xNum, base) ), base)
