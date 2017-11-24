@@ -2,21 +2,21 @@
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-;(function () {
+(function () {
 
 	'use strict';
 
-	//  From underscore source 
+	//  From underscore source
 
-	var root = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self.self === self && self || (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global.global === global && global || this || {};
+	var root = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) === 'object' && self.self === self && self || (typeof global === 'undefined' ? 'undefined' : _typeof(global)) === 'object' && global.global === global && global || this || {};
 
 	// store previous FN
 	var previousFN = root.FN;
 
 	var FN = {};
 
-	if (typeof exports != 'undefined' && !exports.nodeType) {
-		if (typeof module != 'undefined' && !module.nodeType && module.exports) {
+	if (typeof exports !== 'undefined' && !exports.nodeType) {
+		if (typeof module !== 'undefined' && !module.nodeType && module.exports) {
 			exports = module.exports = FN;
 		}
 		exports.FN = FN;
@@ -73,7 +73,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		    factor = 0,
 		    i = void 0;
 
-		if (argsLen == 0) {
+		if (argsLen === 0) {
 			return result;
 		}
 
@@ -140,12 +140,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	function divide() {
 		var args = Array.prototype.slice.call(arguments),
 		    factor = 0,
-		    i = void 0,
 		    argsLen = args.length,
 		    n1 = 0,
 		    n2 = 0,
 		    r = 0,
-		    rest = void 0;
+		    rest = void 0,
+		    i = void 0;
 
 		if (argsLen == 0) {
 			return r;

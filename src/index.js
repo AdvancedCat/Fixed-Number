@@ -1,23 +1,23 @@
-(function(){
+(function() {
 
 'use strict';
 
-//  From underscore source 
-var root = 
-	typeof self == 'object' && self.self === self && self ||
-    typeof global == 'object' && global.global === global && global ||
+//  From underscore source
+let root =
+	typeof self === 'object' && self.self === self && self ||
+    typeof global === 'object' && global.global === global && global ||
     this ||
     {};
 
 // store previous FN
-var previousFN = root.FN;
+const previousFN = root.FN;
 
-var FN = {};
+let FN = {};
 
 
-if (typeof exports != 'undefined' && !exports.nodeType) {
-	if (typeof module != 'undefined' && !module.nodeType && module.exports) {
-	    exports = module.exports = FN;
+if (typeof exports !== 'undefined' && !exports.nodeType) {
+	if (typeof module !== 'undefined' && !module.nodeType && module.exports) {
+		exports = module.exports = FN;
 	}
 	exports.FN = FN;
 } else {
@@ -30,8 +30,8 @@ if (typeof exports != 'undefined' && !exports.nodeType) {
  * @return {[type]}     [description]
  */
 function getDigitLength(num){
-	let eSplits = num.toString().split(/[eE]/),
-	    len     = (eSplits[0].split('.')[1] || '').length - (+eSplits[1] || 0);
+	const eSplits = num.toString().split(/[eE]/),
+	      len     = (eSplits[0].split('.')[1] || '').length - (+eSplits[1] || 0);
 
 	return len > 0 ? len : 0;
 }
@@ -72,7 +72,7 @@ function plus(){
 	    factor      = 0,
 		i;
 
-	if(argsLen == 0){
+	if (argsLen === 0) {
 		return result;
 	}
 
