@@ -31,7 +31,7 @@ if (typeof exports != 'undefined' && !exports.nodeType) {
  */
 function getDigitLength(num){
 	let eSplits = num.toString().split(/[eE]/),
-	    len = (eSplits[0].split('.')[1] || '').length - (+eSplits[1] || 0);
+	    len     = (eSplits[0].split('.')[1] || '').length - (+eSplits[1] || 0);
 
 	return len > 0 ? len : 0;
 }
@@ -43,8 +43,8 @@ function getDigitLength(num){
  */
 function transToInt(num){
 	let numStr = num.toString(),
-		xNum = Number(num),
-		dLen = 0;
+	    xNum   = Number(num),
+	    dLen   = 0;
 
 	if(numStr.indexOf('e') == -1 && numStr.indexOf('E') == -1){
 		return Number(numStr.replace('.', ''));
@@ -65,11 +65,11 @@ function amend(num, precision = 12){
 
 
 function plus(){
-	let args = Array.prototype.slice.call(arguments),
-		argsLen = args.length,
-		result = 0,
-		maxDigitLen = 0,
-		factor = 0, 
+	let args        = Array.prototype.slice.call(arguments),
+	    argsLen     = args.length,
+	    result      = 0,
+	    maxDigitLen = 0,
+	    factor      = 0,
 		i;
 
 	if(argsLen == 0){
@@ -91,11 +91,11 @@ function plus(){
 }
 
 function minus(){
-	let args = Array.prototype.slice.call(arguments),
-		argsLen = args.length,
-		result = 0,
-		maxDigitLen = 0,
-		factor = 0, 
+	let args        = Array.prototype.slice.call(arguments),
+	    argsLen     = args.length,
+	    result      = 0,
+	    maxDigitLen = 0,
+	    factor      = 0,
 		i;
 
 	if(args.length == 0){
@@ -119,10 +119,10 @@ function minus(){
 
 
 function multi(){
-	let args = Array.prototype.slice.call(arguments),
-		argsLen = args.length,
-		result = 1,
-		baseCount = 0, 
+	let args      = Array.prototype.slice.call(arguments),
+	    argsLen   = args.length,
+	    result    = 1,
+	    baseCount = 0,
 		i;
 
 	if(argsLen == 0){
@@ -131,17 +131,21 @@ function multi(){
 
 	for(i=0; i<argsLen; i++){
 		baseCount += getDigitLength(args[i]);
-		result *= transToInt(args[i]);
+		result    *= transToInt(args[i]);
 	}
 
 	return result / Math.pow(10, baseCount);
 }
 
 function divide(){
-	let args = Array.prototype.slice.call(arguments),
-		factor = 0, i,
-		argsLen = args.length,
-		n1 = 0, n2 = 0, r = 0, rest;
+	let args    = Array.prototype.slice.call(arguments),
+	    factor  = 0,
+	    argsLen = args.length,
+	    n1      = 0,
+	    n2      = 0,
+	    r       = 0,
+		rest, 
+		i;
 
 	if(argsLen == 0){
 		return r;
@@ -153,7 +157,7 @@ function divide(){
 
 	n1 = transToInt(args[0]);
 	n2 = transToInt(args[1]);
-	r = multi( (n1 / n2), Math.pow( 10, getDigitLength(args[1]) - getDigitLength(args[0])) );
+	r  = multi( (n1 / n2), Math.pow( 10, getDigitLength(args[1]) - getDigitLength(args[0])) );
 
 	if(argsLen == 2){
 		return r;
@@ -165,9 +169,9 @@ function divide(){
 
 
 function toFixed(num, ratio){
-	let base = Math.pow(10, ratio || 0),
-		numStr = num.toString(),
-		xNum = Number(numStr);
+	let base   = Math.pow(10, ratio || 0),
+	    numStr = num.toString(),
+	    xNum   = Number(numStr);
 	return divide(Math.round( multi(xNum, base) ), base);
 }
 
