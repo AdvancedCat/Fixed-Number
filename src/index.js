@@ -98,7 +98,7 @@ function minus(){
 	    factor      = 0,
 		i;
 
-	if(args.length == 0){
+	if (args.length === 0) {
 		return result;
 	}
 
